@@ -36,6 +36,8 @@ The workflow includes:
 ---
 
 ## Requirements
+This project **does not bundle VGGT**.
+You must install them manually before running the pipeline.
 
 * Python 3.x
 
@@ -68,6 +70,7 @@ The complete workflow has **five main steps**:
 ---
 
 ## Step 0: Construct a Large-Viewpoint Map-free Subset (Required)
+Before running VGGT, a **Map-free subset with large viewpoint changes** must be constructed.
 
 ```bash
 python process_dataset/analyze_poses_filter.py
@@ -85,14 +88,19 @@ python process_dataset/analyze_poses_filter.py
 process_dataset/angle_filter_table.csv
 ```
 
-Contains manually curated filtering rules for invalid or uninformative pairs.
+contains **manually annotated filtering rules**, specifying which pose angle ranges or data entries should be excluded.
+This table defines what is considered **invalid or uninformative** and is used directly by `analyze_poses_filter.py`.
 
-> This subset is required as input for **both VGGT and MASt3R**.
+> In short:
+>
+> * `angle_filter_table.csv` = human-curated filtering rules
+> * `analyze_poses_filter.py` = automated subset construction using those rules
 
+The generated subset should be used as the **input dataset for all subsequent steps**.
 ---
 
 ## Step 1: Run VGGT Inference
-
+Run VGGT on the constructed Map-free subset:
 ```bash
 python vggt/run.py
 ```
@@ -169,6 +177,7 @@ python eval_rel_pose.py mapfree/outputs_json_corr_v7/ \
 ---
 
 ## Step 4: Visualize Errors
+To visualize pose estimation errors (e.g., rotation and translation discrepancies), run:
 
 ```bash
 python visual/visualize.py
@@ -179,3 +188,7 @@ python visual/visualize.py
 * Example output: `vis.png`
 
 ---
+This script helps inspect failure cases and error distributions visually.
+An example output is shown in `vis.png`.
+* Add **command-line argument explanations**
+* Draw a **pipeline diagram** showing data flow from subset construction to visualization
