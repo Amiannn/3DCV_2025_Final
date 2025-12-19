@@ -113,6 +113,14 @@ This generates predicted relative poses or intermediate outputs required for eva
 
 **Docker-based commands for MASt3R**:
 
+Before running MASt3R, **download the pre-trained weights**:
+
+```bash
+wget https://download.europe.naverlabs.com/ComputerVision/MASt3R/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth \
+  -O ~/Desktop/3DCV_2025_Final/mast3r/docker/files/checkpoints/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth
+```
+
+
 ### 2.1 3D Reconstruction (MASt3R Demo)
 
 ```bash
