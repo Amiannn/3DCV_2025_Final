@@ -120,6 +120,13 @@ wget https://download.europe.naverlabs.com/ComputerVision/MASt3R/MASt3R_ViTLarge
   -O ~/Desktop/3DCV_2025_Final/mast3r/docker/files/checkpoints/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth
 ```
 
+The script will:
+1. Check if Docker is installed
+2. Download the specified model checkpoint if it does not exist
+3. Run MASt3R inside a Docker container with GPU or CPU support
+```bash
+bash run.sh --with-cuda --model_name="MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric"
+```
 
 ### 2.1 3D Reconstruction (MASt3R Demo)
 
