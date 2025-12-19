@@ -148,12 +148,12 @@ def evaluate_single_file(data: Dict) -> Dict:
     R_gt = np.array(data['gt_pose']['R_ji_gt'])
     t_gt = np.array(data['gt_pose']['t_ji_gt'])
 
-    # Evaluate VGGT pose if available
-    if 'vggt_pose' in data:
-        R_vggt = np.array(data['vggt_pose']['R_ji'])
-        t_vggt = np.array(data['vggt_pose']['t_ji'])
-        rot_err, trans_err, max_err = compute_pose_error(R_gt, t_gt, R_vggt, t_vggt)
-        results['vggt'] = {
+    # Evaluate master pose if available
+    if 'master_pose' in data:
+        R_master = np.array(data['master_pose']['R_ji'])
+        t_master = np.array(data['master_pose']['t_ji'])
+        rot_err, trans_err, max_err = compute_pose_error(R_gt, t_gt, R_master, t_master)
+        results['master'] = {
             'rotation_error': rot_err,
             'translation_error': trans_err,
             'max_error': max_err
@@ -218,7 +218,7 @@ def evaluate_all_files(json_files: List[str]) -> Dict:
     if not all_results:
         return {}
 
-    methods = ['vggt', 'corr']
+    methods = ['master', 'corr']
     aggregate: Dict[str, Dict] = {}
     aggregate_by_bin: Dict[str, Dict[str, Dict]] = {m: {} for m in methods}
 
@@ -506,7 +506,7 @@ def export_pair_errors(
         return
 
     if methods is None:
-        methods = ['vggt', 'corr']
+        methods = ['master', 'corr']
 
     rows = []
     for res in individual:
@@ -573,7 +573,7 @@ def main():
     parser.add_argument(
         '--pattern', '-p',
         type=str,
-        default='*_result.json',
+        default='*.json',
         help='Glob pattern for finding JSON files in directory'
     )
     parser.add_argument(
