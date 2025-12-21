@@ -43,7 +43,7 @@ You must install them manually before running the pipeline.
 
 * VGGT (installed as a package or available in your Python path)
 
-* MASt3R / MEST3R (required if running MASt3R evaluation)
+* MASt3R (required if running MASt3R evaluation)
 
 * Common Python packages:
 
@@ -123,12 +123,12 @@ wget https://download.europe.naverlabs.com/ComputerVision/MASt3R/MASt3R_ViTLarge
 The script will:
 1. Check if Docker is installed
 2. Download the specified model checkpoint if it does not exist
-3. Run MASt3R inside a Docker container with GPU or CPU support
+3. Run MASt3R inside a Docker container with GPU support
 ```bash
 bash run.sh --with-cuda --model_name="MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric"
 ```
 
-### 2.1 3D Reconstruction (MASt3R Demo)
+### 2.1 3D Point Cloud Reconstruction (MASt3R Demo)
 
 ```bash
 docker run --rm --gpus all --net=host \
